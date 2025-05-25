@@ -8,7 +8,11 @@ function App() {
    return (
       <>
          <header className=" container navbar bg-base-100 flex justify-between">
-            <a className="btn btn-link text-xl" target="_blank" href="https://github.com/babdikaarov/whatsappMyApp">
+            <a
+               className="btn btn-link text-xl"
+               target="_blank"
+               href="https://github.com/babdikaarov/whatsappMyApp?tab=readme-ov-file#whatsapp-message-sender-app"
+            >
                Github repo 🔗
             </a>
             <ToggleTheme />
