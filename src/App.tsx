@@ -8,7 +8,7 @@ function App() {
    return (
       <>
          <header className=" container navbar bg-base-100 flex justify-between">
-            <a className="btn btn-link text-xl" target="_blank">
+            <a className="btn btn-link text-xl" target="_blank" href="https://github.com/babdikaarov/whatsappMyApp">
                Github repo 🔗
             </a>
             <ToggleTheme />

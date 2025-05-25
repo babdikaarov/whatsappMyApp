@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // db.ts
 import { createClient } from "@supabase/supabase-js";
 import type { Contact } from "./types";
@@ -42,7 +43,7 @@ type WithOptionalId = { id?: number };
 function createTableApi<T extends WithOptionalId>(tableName: string) {
    return {
       get: async (filters?: QueryFilter[], range?: Range): Promise<T[]> => {
-         let query = supabase.from<T>(tableName).select("*");
+         let query = supabase.from(tableName).select("*");
          query = applyFilters(query, filters);
          query = applyRange(query, range);
 
@@ -52,13 +53,13 @@ function createTableApi<T extends WithOptionalId>(tableName: string) {
       },
 
       getById: async (id: string): Promise<T | null> => {
-         const { data, error } = await supabase.from<T>(tableName).select("*").eq("id", id).single();
+         const { data, error } = await supabase.from(tableName).select("*").eq("id", id).single();
          if (error) throw error;
          return data;
       },
 
       insert: async (obj: Omit<T, "id">): Promise<T> => {
-         const { data, error } = await supabase.from<T>(tableName).insert([obj]).select();
+         const { data, error } = await supabase.from(tableName).insert([obj]).select();
          if (error) throw error;
          return data![0];
       },
@@ -66,7 +67,7 @@ function createTableApi<T extends WithOptionalId>(tableName: string) {
       update: async (obj: T): Promise<T> => {
          if (!obj.id) throw new Error("Missing id for update");
          const { id, ...rest } = obj;
-         const { data, error } = await supabase.from<T>(tableName).update(rest).eq("id", id).select();
+         const { data, error } = await supabase.from(tableName).update(rest).eq("id", id).select();
          if (error) throw error;
          return data![0];
       },
