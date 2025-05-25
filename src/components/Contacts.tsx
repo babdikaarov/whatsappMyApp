@@ -140,7 +140,7 @@ const Contacts: React.FC = () => {
    if (loading) return <div className="p-4">Loading...</div>;
 
    return (
-      <div className="p-4 max-w-xl mx-auto">
+      <div className="p-4 max-w-xl mx-auto ">
          <div className="flex items-center justify-between border-b pb-2 mb-4">
             <h1 className="text-xl font-semibold">
                Contacts {selectedContacts.length ? `${selectedContacts.length} selected` : ""}
@@ -159,7 +159,7 @@ const Contacts: React.FC = () => {
             </div>
          </div>
 
-         <ul className="space-y-2 overflow-scroll min-h-96 scroll-shadow">
+         <ul className="space-y-2 overflow-scroll min-h-96 scroll-shadow w-5/6 md:w-auto mx-auto">
             {contacts.map((contact) => (
                <li key={contact.id} className="flex items-center gap-4 p-3 border rounded-md">
                   <input

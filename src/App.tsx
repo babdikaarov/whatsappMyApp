@@ -18,12 +18,12 @@ function App() {
             <ToggleTheme />
          </header>
          <div className="divider mt-1" />
-         <main className="flex container">
-            <section className="w-1/2">
+         <main className="flex container flex-col md:flex-row">
+            <section className="md:w-1/2 ">
                <Contacts />
             </section>
-            <div className="divider divider-horizontal" />
-            <section className="w-1/2">
+            <div className="divider md:divider-horizontal divider-vertical" />
+            <section className="md:w-1/2">
                <Message />
             </section>
             <div className="absolute bottom-2 container">
