@@ -2,16 +2,17 @@ import { useState } from "react";
 import { db } from "../../db";
 import { useAppStore } from "../../store/useAppStore";
 
-
 const AddTemplate: React.FC = () => {
-   const { setTemplates, templates } = useAppStore();
+   const { setTemplates, templates, setAlertActive, setAlertFailed, setAlertText } = useAppStore();
    const [loading, setLoading] = useState(false);
    const [title, setTitle] = useState("");
    const [content, setContent] = useState("");
 
    const handleAddTemplate = async () => {
       if (!title.trim() || !content.trim()) {
-         alert("Please enter both title and content.");
+         setAlertActive(true);
+         setAlertFailed(true);
+         setAlertText("Please enter both title and content.");
          return;
       }
       try {
@@ -20,9 +21,11 @@ const AddTemplate: React.FC = () => {
             title: title.trim(),
             content: content.trim(),
          });
+         setAlertActive(true);
+         setAlertFailed(false);
+         setAlertText("Template added");
          console.log("Template added:", newTemplate);
          setTemplates([...templates, newTemplate]);
-         //  Reset inputs
          setTitle("");
          setContent("");
       } catch (error) {
@@ -34,9 +37,6 @@ const AddTemplate: React.FC = () => {
 
    return (
       <>
-         {/* Button to open modal */}
-        
-
          {/* Modal checkbox toggle */}
          <input type="checkbox" id="add-template-modal" className="modal-toggle" />
 

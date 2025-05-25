@@ -6,7 +6,7 @@ import type { Template } from "../types";
 import { useAppStore } from "../store/useAppStore";
 
 const Templates: React.FC = () => {
-   const { templates, setTemplates, setSelectedTemplate } = useAppStore();
+   const { templates, setTemplates, setSelectedTemplate, setAlertActive, setAlertFailed, setAlertText } = useAppStore();
    const [loading, setLoading] = useState(false);
    const [editingId, setEditingId] = useState<number | null>(null);
    const [editTitle, setEditTitle] = useState("");
@@ -61,6 +61,9 @@ const Templates: React.FC = () => {
          const updatedTemplates = currentTemplates.map((t) =>
             t.id === editingId ? { ...t, title: editTitle.trim(), content: editContent.trim() } : t,
          );
+         setAlertActive(true);
+         setAlertFailed(false);
+         setAlertText("Template saved successfully");
          setTemplates(updatedTemplates);
          cancelEditing();
       } catch (error) {
@@ -80,7 +83,9 @@ const Templates: React.FC = () => {
          const currentTemplates = useAppStore.getState().templates;
          const updatedTemplates = currentTemplates.filter((t) => t.id !== id);
          setTemplates(updatedTemplates);
-
+         setAlertActive(true);
+         setAlertFailed(false);
+         setAlertText("Template deleted successfully");
          if (editingId === id) cancelEditing();
       } catch (error) {
          console.error("Error deleting template:", error);
