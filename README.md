@@ -1,54 +1,75 @@
-# React + TypeScript + Vite
+# WhatsApp Message Sender App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based application that allows you to send messages to WhatsApp contacts using the WhatsApp Cloud API.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-  ✅ **Send Text Messages**  
+   Supports sending plain text messages (with optional URL previews) to individual WhatsApp users via the Cloud API.
 
-## Expanding the ESLint configuration
+-  ✅ **Progress Feedback with Animations**  
+   Includes dynamic progress indicators showing the sending status, including:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+   -  Delay progress (based on debounce time between messages)
+   -  Successfully sent
+   -  Failed messages
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+-  ✅ **Template Verification Flow**  
+   Automatically sends a pre-approved template message (`hello_world`) as required by WhatsApp Cloud API before allowing regular text messages.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+-  ✅ **Contact Selection & Verification Status**  
+   Contacts are displayed with selection options and verification indicators to distinguish between test-ready numbers and others.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+-  ✅ **Zustand Global Store**  
+   Lightweight state management with Zustand for managing alerts, selected contacts, templates, and verification flow.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+-  ✅ **Alert System**  
+   Visual success or failure alerts appear and disappear automatically after a few seconds.
+
+## 🛠 Tech Stack
+
+-  **React + TypeScript**
+-  **Tailwind CSS**
+-  **Zustand** for state management
+-  **Fetch API** for HTTP requests
+-  **DaisyUI** for UI components
+
+---
+
+## ⚠️ WhatsApp Cloud API Limitations
+
+Due to restrictions imposed by the WhatsApp Cloud API, there are important usage limitations:
+
+### 1. ✅ Pre-approved Template Must Be Sent First
+
+-  **Requirement:** You must send a pre-approved template message (e.g., `hello_world`) to a contact **before** sending any regular text message.
+-  **Why?** This ensures the recipient has opted-in or is recognized by WhatsApp as having accepted messages from your business.
+-  **Solution:** A **"Verify"** button is shown in the app next to unverified contacts. When clicked, it sends the required template message.
+
+### 2. ⚠️ Contacts Must Be Added to WhatsApp Business Manager
+
+-  Any recipient phone number must be manually added and approved in the **WhatsApp Business Manager** under **Test Numbers**.
+-  Without this step, you will receive a `403` error or `recipient not allowed` error even if the number is real.
+
+---
+
+## ✅ Setup & Configuration
+
+### 1. Clone the repo
+
+````bash
+git clone https://github.com/yourusername/whatsapp-sender-app.git
+cd whatsapp-sender-app
+
+
+```bash
+npm install
+````
+
+```env
+<!-- free of use my supabase key -->
+VITE_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjcHZ1bml4cXhrZnNncXdvaW51Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgwOTQzNjUsImV4cCI6MjA2MzY3MDM2NX0.tD8QiBVadN7yjEJobjp7CSe2x8Zpwsbpn3v24qyUdGk
+
+VITE_PHONE_ID=your_whatsapp_phone_number_id
+VITE_ACCESS_TOKEN=your_whatsapp_access_token
 ```
