@@ -49,6 +49,7 @@ const Message: React.FC = () => {
                ...prev,
                success: prev.success + (response.ok ? 1 : 0),
             }));
+            setMessage("")
 
             if (!response.ok) throw new Error(data.error.message);
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
